@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Requests</title>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../static/javaScript/showAllRequests.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/manager/showAllRequests.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">درخواست ها</div>
+    </div>
+    <div class="search-container">
+        <form th:action="@{/manager/limitRequestsList}">
+            <label for="attending">در حال بررسی</label>
+            <input type="radio" name="requestStatus" id="attending" value="ATTENDING">
+            <label for="answered">پاسخ داده شده</label>
+            <input type="radio" name="requestStatus" id="answered" value="ANSWERED">
+            <input type="date" name="date">
+            <input type="submit" value="جستجو">
+        </form>
+    </div>
+    <div class="edit-show-container">
+        <form class="button-form" th:action="@{/manager/viewAnswer}">
+            <input class="edit-btn" type="submit" value="مشاهده پاسخ ">
+            <input name="request-id" type="hidden" class="request-id" value="0">
+        </form>
+        <form class="button-form" th:action="@{/manager/requestWithDetails}">
+            <input class="edit-btn" type="submit" value="مشاهده درخواست">
+            <input name="request-id" type="hidden" class="request-id" value="0">
+        </form>
+    </div>
+    <div class="main-table">
+        <table id="table">
+            <tr>
+                <th class="first-th">شماره</th>
+                <th>موضوع</th>
+                <th>تاریخ</th>
+                <th>درخواست دهنده</th>
+                <th class="last-th">وضعیت</th>
+            </tr>
+            <tr th:each="request : ${requests}">
+                <td th:text="*{request.getId()}" name="requestId" class="requestId"></td>
+                <td th:text="*{request.getSubject().getSubject()}">فروش سهام عدالت</td>
+                <td th:text="*{request.getDate()}">1999/23/09</td>
+                <td th:text="*{request.getUser().getFirstName() +'  '+ request.getUser().getLastName()} "></td>
+                <td th:text="*{request.getRequestStatus()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

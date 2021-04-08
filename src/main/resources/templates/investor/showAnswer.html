@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/showAnswer.css">
+</head>
+<body>
+<div class="main-frame">
+    <div class="header">
+        <div class="header-title">پنل ثبت درخواست</div>
+    </div>
+    <div class="content">
+        <div class="main-form" th:object="${answer}">
+            <div class="answer-status" th:text="*{getStatus()}">
+            </div>
+            <textarea class="description" readonly="readonly" th:text="*{getDescription()}" >
+            </textarea>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User Pass</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/manager/editUserPass.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">تغییر رمز عبور</div>
+    </div>
+    <div class="edit-pass-container">
+        <form th:action="@{/admin/userNewPass}" method="post">
+            <label for="new-pass">رمز عبور جدید</label>
+            <input type="password" id="new-pass" name="new-pass">
+            <input name="user-id" th:value="${id}" type="hidden">
+            <input type="submit" value="تغییر">
+        </form>
+    </div>
+</div>
+</body>
+</html>

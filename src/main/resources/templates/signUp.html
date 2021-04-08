@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/signUp.css" />
+</head>
+<body>
+<div class="mainFrame">
+    <div class="titleFrame">
+        فرم ثبت نام
+    </div>
+    <div class="contentFrame">
+        <form action="#" method="post" th:action="@{/sign-up}" th:object="${user}">
+            <div class="inp">
+                <label for="firstName">نام</label>
+                <input id="firstName" th:field="*{firstName}" type="text"><br>
+                <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+            </div>
+            <div class="inp">
+                <label for="lastName">نام خانوادگی</label>
+                <input id="lastName" th:field="*{lastName}" type="text"><br>
+                <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
+            </div>
+            <div class="inp">
+                <label for="username">نام کاربری</label>
+                <input id="username" th:field="*{username}" type="text"><br>
+                <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
+            </div>
+            <div class="inp">
+                <label for="nationalId">کد ملی</label>
+                <input id="nationalId" th:field="*{nationalId}" type="text"><br>
+                <span th:errors="*{nationalId}" th:if="${#fields.hasErrors('nationalId')}"></span>
+            </div>
+            <div class="inp">
+                <label for="phoneNumber">شماره تلفن</label>
+                <input id="phoneNumber" th:field="*{phoneNumber}" type="text"><br>
+                <span th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}"></span>
+            </div>
+            <div class="inp">
+                <label for="email">ایمیل</label>
+                <input id="email" th:field="*{email}" type="email"><br>
+                <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+            </div>
+            <div class="inp">
+                <label for="password">رمز ورود</label>
+                <input id="password" th:field="*{password}" type="password"><br>
+                <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+            </div>
+            <!--            <div class="inp">-->
+            <!--                <label for="confirmPassword">تکرار رمز ورود</label>-->
+            <!--                <input id="confirmPassword" type="password"><br>-->
+            <!--                <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>-->
+            <!--            </div>-->
+            <div>
+                <input id="submit" type="submit" value="ایجاد">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

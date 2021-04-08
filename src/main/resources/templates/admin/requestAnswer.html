@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Answer</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/admin/requestAnswer.css">
+</head>
+<body>
+<div class="main-frame">
+    <div class="header">
+        <div class="header-title">پنل ثبت پاسخ</div>
+    </div>
+    <div class="content">
+        <div class="main-form">
+            <form th:action="@{/admin/submitAnswer}">
+                <div class="input">
+                    <label for="subject">وضعیت پاسخ :</label>
+                    <select id="subject" name="status">
+                        <option value="accepted">پذیرفته شده</option>
+                        <option value="rejected">رد شده</option>
+                    </select><br>
+                </div>
+                <div class="text-area-input">
+                    <label for="description">شرح پاسخ :</label>
+                    <textarea id="description" name="description" ></textarea><br>
+                </div>
+                <div class="input">
+                    <input type="submit" value="ثبت پاسخ">
+                </div>
+                <input type="hidden" name="requestId" th:value="${requestId}">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

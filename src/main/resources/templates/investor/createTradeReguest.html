@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/createTradeRequest.css">
+</head>
+<body>
+<div class="main-frame">
+    <div class="header">
+        <div class="header-title">پنل ثبت درخواست</div>
+    </div>
+    <div class="content">
+        <div class="main-form">
+            <form enctype="multipart/form-data" method="post" th:action="@{/investor/submitRequest}">
+                <div class="input">
+                    <label for="subject">موضوع درخواست :</label>
+                    <select id="subject" name="subject">
+                        <!--/*@thymesVar id="subjects" type="ir.broker.maktab.broker.model.request.RequestSubject"*/-->
+                        <span th:each="subject : ${subjects}">
+                            <option th:value="${subject.id}">
+                                <span th:text="${subject.subject}"></span>
+                            </option>
+                        </span>
+                    </select><br>
+                </div>
+                <div class="text-area-input">
+                    <label for="description">شرح درخواست :</label>
+                    <textarea id="description" name="description"></textarea><br>
+                </div>
+                <div class="input">
+                    <label for="files">فایل های ضمیمه :</label>
+                    <input id="files" multiple="multiple" name="files" type="file"><br>
+                </div>
+                <div class="input">
+                    <input type="submit" value="ثبت">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

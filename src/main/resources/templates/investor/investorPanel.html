@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Investor Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/investorPanel.css">
+</head>
+<body>
+<div class="MainFrame">
+    <div class="FrameTitle">
+        <div class="title-content">
+            پنل کاربری سرمایه گذار
+        </div>
+    </div>
+    <div class="FrameContent">
+        <div class="top-container">
+            <div class="user-name">
+                <span th:text="${firstName}"></span>
+                <span th:text="${lastName}"></span>
+            </div>
+            <a class="logout-link" href="/logout">خروج</a>
+        </div>
+        <div class="container">
+            <button class="action-btn" onclick="window.location.href='/investor/newRequest'">
+                ثبت درخواست جدید
+            </button>
+            <button class="action-btn" onclick="window.location.href='/investor/viewAllRequests'">
+                مشاهده وضعیت در خواست ها
+            </button>
+            <button class="action-btn" onclick="window.location.href='/investor/editInfo';">
+                ویرایش اطلاعات کاربر
+            </button>
+            <button class="action-btn" onclick="window.location.href='/investor/editPass'">
+                تغییر رمز ورود
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

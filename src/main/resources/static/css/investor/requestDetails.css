@@ -1,0 +1,74 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    color: #2f2c2c;
+}
+
+.main {
+    position: relative;
+    width: 60%;
+    height: 53%;
+    top: 20vh;
+    border-radius: 5px;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    direction: rtl;
+
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+.title {
+    border: 1px solid white;
+    width: 30%;
+    background-color: #7f56ba;
+    color: white;
+    height: 35px;
+}
+
+.th_header {
+    background-color: #7f56ba;
+    color: white;
+    font-size: x-large;
+    height: 45px;
+}
+
+.btn {
+    background-color: white;
+    color: #7f56ba;
+    width: 35%;
+    height: 80%;
+    font-size: 20px;
+}
+
+.btn:hover {
+    background-color: brown;
+}
+
+th {
+    border: 1px solid white;
+    width: 70%;
+    height: 35px;
+}
+
+#description {
+    height: 75px !important;
+    font-size: 14px;
+}

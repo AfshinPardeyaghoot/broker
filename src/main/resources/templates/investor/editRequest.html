@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Request</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/editRequest.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="main-frame">
+    <div class="header">
+        <div class="header-title">پنل ویرایش درخواست</div>
+    </div>
+    <div class="content">
+        <div class="main-form">
+            <form class="form" th:object="${request}">
+                <div class="input">
+                    <label for="subject">موضوع درخواست :</label>
+                    <div class="req-subject" id="subject" th:text="*{getSubject().getSubject()}"></div>
+                </div>
+                <div class="text-area-input">
+                    <label for="description">شرح درخواست :</label>
+                    <textarea id="description" th:text="*{getDescription()}"></textarea><br>
+                </div>
+                <div class="input" id="manage-file">
+                    <label th:text="${file.getFileName()}"></label>
+                    <input type="hidden" name="request-id" th:value="*{getId()}">
+                    <a th:href="@{/investor/deleteFile/{id}/{requestId}(id=${file.getId()},requestId=*{getId()})}"><i class="fa fa-trash"></i></a>
+                </div>
+                <div class="input">
+                    <input type="file" multiple="multiple">
+                    <input type="submit" value="ویرایش">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

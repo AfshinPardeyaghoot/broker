@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Subjects</title>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../static/javaScript/requestSubject.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/manager/requestSubject.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">درخواست ها</div>
+    </div>
+    <div class="new-subject">
+        <form th:action="@{/manager/newSubject}" method="post">
+            <input type="text" placeholder="موضوع جدید" name="subject">
+            <input type="submit" value="اضافه کردن">
+        </form>
+    </div>
+    <div class="edit-show-container">
+        <form th:action="@{/manager/deleteSubject}">
+            <input type="submit" value="حذف موضوع">
+            <input type="hidden" class="subject-id" name="subjectId" value="0">
+        </form>
+    </div>
+    <div class="main-table">
+        <table id="table">
+            <tr>
+                <th class="first-th">شماره</th>
+                <th class="last-th">موضوع</th>
+            </tr>
+            <tr th:each="subject : ${subjects}">
+                <td th:text="*{subject.getId()}"></td>
+                <td th:text="*{subject.getSubject()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

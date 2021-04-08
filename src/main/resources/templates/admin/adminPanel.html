@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../static/javaScript/adminPanel.js"></script>
+    <link href="../../static/css/admin/adminPanel.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">درخواست ها</div>
+    </div>
+    <div class="edit-show-container">
+        <form class="button-form" th:action="@{/admin/answerPage}">
+            <input class="edit-btn" type="submit" value=" پاسخ دادن">
+            <input name="request-id" type="hidden" class="request-id-answer">
+        </form>
+        <form class="button-form" th:action="@{/admin/requestDetails}">
+            <input class="edit-btn" type="submit" value="مشاهده درخواست">
+            <input name="request-id" type="hidden" class="request-id-show">
+        </form>
+    </div>
+    <div class="main-table">
+        <table id="table">
+            <tr>
+                <th class="first-th">شماره</th>
+                <th >موضوع</th>
+                <th>تاریخ</th>
+                <th class="last-th">درخواست دهنده</th>
+            </tr>
+            <tr th:each="request : ${requests}">
+                <td th:text="*{request.getId()}" name="requestId" class="requestId"></td>
+                <td th:text="*{request.getSubject().getSubject()}">فروش سهام عدالت</td>
+                <td th:text="*{request.getDate()}">1999/23/09</td>
+                <td th:text="*{request.getUser().getFirstName() +'  '+ request.getUser().getLastName()} "></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

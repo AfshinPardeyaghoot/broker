@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../static/javaScript/showAllUsers.js"></script>
+    <link href="../../static/css/manager/showAllUser.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">درخواست های کاربر</div>
+    </div>
+    <div class="search-container">
+        <form th:action="@{/manager/searchUsers}">
+            <select name="searchField">
+                <option value="firstName">نام</option>
+                <option value="lastName">نام خانوادگی</option>
+                <option value="nationalId">کد ملی</option>
+                <option value="phoneNumber">شماره تلفن</option>
+            </select>
+            <input placeholder="عبارت جستجو" type="text" name="value">
+            <input type="submit" value="جستجو">
+        </form>
+    </div>
+    <div class="edit-show-container">
+        <form class="button-form" th:action="@{/manager/showUserRequests}">
+            <input class="edit-btn" type="submit" value="مشاهده درخواست ها">
+            <input name="userNationalId" type="hidden" class="userNationalIdForRequest" value="">
+        </form>
+        <form class="button-form" th:action="@{/manager/editUser}">
+            <input class="edit-btn" type="submit" value="ویرایش کاربر">
+            <input name="userNationalId" type="hidden" class="userNationalIdForEdit" value="">
+        </form>
+        <form class="button-form" th:action="@{/manager/editUserPass}">
+            <input class="edit-btn" type="submit" value="تغییر رمز عبور کاربر">
+            <input name="userNationalId" type="hidden" class="userNationalIdForChangePass" value="">
+        </form>
+        <form class="button-form" th:action="@{/manager/ChangeUserLockSatus}" method="post">
+            <input class="edit-btn" type="submit" value="تغییر وضعیت">
+            <input name="userNationalId" type="hidden" class="userNationalIdForLockStatus" value="">
+        </form>
+    </div>
+    <div class="main-table">
+        <table id="table">
+            <tr>
+                <th class="first-th">نام</th>
+                <th>نام خانوادگی</th>
+                <th>پست الکترونیک</th>
+                <th>شماره تلفن</th>
+                <th>سطح دسترسی</th>
+                <th>وضعیت</th>
+                <th class="last-th">کد ملی</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="*{user.getFirstName()}"></td>
+                <td th:text="*{user.getLastName()}"></td>
+                <td th:text="*{user.getEmail()}"></td>
+                <td th:text="*{user.getPhoneNumber()}"></td>
+                <td th:text="*{user.getRoles().get(0)}"></td>
+                <td>
+                    <span th:if="*{user.getIsNonLocked()} == true " th:text="فعال"></span>
+                    <span th:unless="*{user.getIsNonLocked()} == true " th:text="غیرفعال"></span>
+                </td>
+                <td th:text="*{user.getNationalId()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User All Requests</title>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../static/javaScript/investorAllRequests.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/allRequest.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="title">
+        <div class="title-content">درخواست ها</div>
+    </div>
+    <div class="edit-show-container">
+        <form class="button-form" th:action="@{/investor/viewAnswer}">
+            <input class="edit-btn" type="submit" value="مشاهده پاسخ ">
+            <input name="request-id" type="hidden" class="request-id-answer" value="0">
+        </form>
+        <form class="button-form" th:action="@{/investor/requestWithDetail}">
+            <input class="edit-btn" type="submit" value="مشاهده درخواست">
+            <input name="request-id" value="0"  type="hidden" class="request-id-show">
+        </form>
+        <form class="button-form" th:action="@{/investor/editRequest}">
+            <input class="edit-btn" type="submit" value="ویرایش درخواست">
+            <input name="request-id" value="0"  type="hidden" class="request-id-edit">
+        </form>
+    </div>
+    <div class="main-table">
+        <table id="table">
+            <tr>
+                <th class="first-th">شماره</th>
+                <th>موضوع</th>
+                <th>تاریخ</th>
+                <th class="last-th">وضعیت</th>
+            </tr>
+            <tr th:each="request : ${requests}">
+                <td th:text="*{request.getId()}"></td>
+                <td th:text="*{request.getSubject().getSubject()}"></td>
+                <td th:text="*{request.getDate()}"></td>
+                <td th:text="*{request.getRequestStatus()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

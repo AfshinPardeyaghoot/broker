@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Details</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/investor/requestDetail.css">
+</head>
+<body>
+<div class="main">
+    <table th:object="${request}">
+        <tr>
+            <th class="th_header" colspan="2">درخواست</th>
+        </tr>
+        <tr>
+            <th class="title">موضوع</th>
+            <th th:text="*{getSubject().getSubject()}"></th>
+        </tr>
+        <tr>
+            <th class="title">شرح</th>
+            <th id="description" th:text="*{getDescription()}"></th>
+        </tr>
+        <tr>
+            <th class="title">فایل های ضمیمه</th>
+            <span th:each="dbFile : ${files}">
+                <th>
+                    <a th:href="@{'/investor/downloadAttachFile/' + ${dbFile.getId()}}">
+                        <span th:text="${dbFile.getFileName()}"></span>
+                    </a><br>
+                </th>
+            </span>
+        </tr>
+        <tr>
+            <th class="title">تاریخ</th>
+            <th th:text="*{getDate()}"></th>
+        </tr>
+        <tr>
+            <th class="title">وضعیت</th>
+            <th th:text="*{getRequestStatus()}"></th>
+        </tr>
+        <tr>
+            <th class="th_header" colspan="2">
+            </th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

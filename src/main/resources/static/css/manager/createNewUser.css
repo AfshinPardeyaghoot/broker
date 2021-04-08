@@ -1,0 +1,105 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #edf0f2;
+    direction: rtl;
+    color: #2f2c2c;
+    box-sizing: border-box;
+
+}
+
+.mainFrame {
+    background-color: white;
+    position: relative;
+    top: 10px;
+    height: 105%;
+    width: 45%;
+    box-shadow: 1px 1px 3px 3px #aaaaaa;
+    border: 1px solid blueviolet;
+}
+
+.titleFrame {
+    background-color: blueviolet;
+    height: 7%;
+    width: 100%;
+    font-family: "B Arshia";
+    color: wheat;
+    border-bottom: blueviolet 5px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.contentFrame {
+    width: 100%;
+    height: 93%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    background-color: wheat;
+}
+
+form {
+    justify-content: center;
+    bottom: 30px;
+    width: 40%;
+    height: 100%;
+    top: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.inp {
+    margin: 3px;
+    width: 90%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#submit {
+    background-color: blueviolet;
+    width: 90% !important;
+    color: white;
+    font-size: 15px;
+    position: relative;
+    left: 9px;
+}
+
+#submit:hover {
+    background-color: #410778;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select {
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid #560f93;
+    font-size: 14px;
+    background-color: wheat;
+    margin: 3px;
+    outline: black;
+}
+
+select {
+    text-align: center;
+    padding: 3px;
+    margin: 3px;
+}
+
+
+
+
+
+

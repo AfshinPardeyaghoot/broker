@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Panel</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/manager/managerPanel.css">
+</head>
+<body>
+<div class="MainFrame">
+    <div class="FrameTitle">
+        <div class="title-content">
+            پنل راهبر سامانه
+        </div>
+    </div>
+    <div class="FrameContent">
+        <div class="top-container">
+            <div class="user-name">
+                <span th:text="${firstName}"></span>
+                <span th:text="${lastName}"></span>
+            </div>
+            <a class="logout-link" th:href="@{/logout}">خروج</a>
+        </div>
+        <div class="container">
+            <button class="action-btn" onclick="window.location.href='/manager/createNewUser'">
+                <a>ایجاد کاربر جدید</a>
+            </button>
+            <button class="action-btn" onclick="window.location.href='/manager/allUser'">
+                <a>مدیریت کاربران</a>
+            </button>
+            <button class="action-btn" onclick="window.location.href='/manager/allRequests'">
+                <a>میدیریت درخواست ها </a>
+            </button>
+            <button class="action-btn" onclick="window.location.href='/manager/requestSubjects'">
+                <a>مدیریت موضوعات درخواست</a>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
