@@ -148,3 +148,14 @@ td {
     padding: 5px;
     cursor: pointer;
 }
+
+.logout-link {
+    color: #a04747;
+    position: relative;
+    justify-content: left;
+    display: flex;
+    justify-items: left;
+    text-decoration: none;
+    margin: 0 5px 5px;
+    padding: 0 5px 5px;
+}

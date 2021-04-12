@@ -11,43 +11,58 @@
     <div class="titleFrame">
         فرم ثبت نام
     </div>
-    <div class="contentFrame">
-        <!--/*@thymesVar id="user" type="ir.broker.maktab.broker.model.user.User"*/-->
-        <form action="#" method="post" th:action="@{/manager/saveUser}" th:object="${user}">
+    <div class="contentFrame" th:object="${user}">
+        <div class="err-frame" >
+            <div class="err">
+                <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{nationalId}" th:if="${#fields.hasErrors('nationalId')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+            </div>
+        </div>
+        <form action="#" method="post" th:action="@{/manager/saveUser}">
             <div class="inp">
                 <label for="firstName">نام</label>
                 <input id="firstName" th:field="*{firstName}" type="text"><br>
-                <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
             </div>
             <div class="inp">
                 <label for="lastName">نام خانوادگی</label>
                 <input id="lastName" th:field="*{lastName}" type="text"><br>
-                <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
             </div>
             <div class="inp">
                 <label for="username">نام کاربری</label>
                 <input id="username" th:field="*{username}" type="text"><br>
-                <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
             </div>
             <div class="inp">
                 <label for="nationalId">کد ملی</label>
                 <input id="nationalId" th:field="*{nationalId}" type="text"><br>
-                <span th:errors="*{nationalId}" th:if="${#fields.hasErrors('nationalId')}"></span>
             </div>
             <div class="inp">
                 <label for="phoneNumber">شماره تلفن</label>
                 <input id="phoneNumber" th:field="*{phoneNumber}" type="text"><br>
-                <span th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}"></span>
             </div>
             <div class="inp">
                 <label for="email">ایمیل</label>
                 <input id="email" th:field="*{email}" type="email"><br>
-                <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
             </div>
             <div class="inp">
                 <label for="password">رمز ورود</label>
                 <input id="password" th:field="*{password}" type="password"><br>
-                <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
             </div>
             <div class="inp">
                 <label for="role">نوع کاربر</label>

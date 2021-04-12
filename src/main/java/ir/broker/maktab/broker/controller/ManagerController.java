@@ -6,7 +6,6 @@ import ir.broker.maktab.broker.model.request.Request;
 import ir.broker.maktab.broker.model.request.RequestStatus;
 import ir.broker.maktab.broker.model.request.RequestSubject;
 import ir.broker.maktab.broker.model.user.User;
-import ir.broker.maktab.broker.repository.UserRepository;
 import ir.broker.maktab.broker.service.RequestAnswerService;
 import ir.broker.maktab.broker.service.RequestService;
 import ir.broker.maktab.broker.service.RequestSubjectService;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.security.auth.Subject;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,17 +29,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static ir.broker.maktab.broker.model.user.Role.ROLE_ADMIN;
-import static ir.broker.maktab.broker.model.user.Role.ROLE_INVESTOR;
+import static ir.broker.maktab.broker.model.user.Role.*;
 
 @Controller
 public class ManagerController {
 
-    private UserService userService ;
-    private  PasswordEncoder passwordEncoder;
-    private RequestService requestService ;
-    private RequestSubjectService subjectService ;
-    private RequestAnswerService answerService ;
+    private UserService userService;
+    private PasswordEncoder passwordEncoder;
+    private RequestService requestService;
+    private RequestSubjectService subjectService;
+    private RequestAnswerService answerService;
 
     @Autowired
     public ManagerController(UserService userService, PasswordEncoder passwordEncoder, RequestService requestService, RequestSubjectService subjectService, RequestAnswerService answerService) {
@@ -68,9 +65,10 @@ public class ManagerController {
     }
 
     @PostMapping("manager/saveUser")
-    public String saveNewUser(@Valid User user, @RequestParam("role") String role, BindingResult bindingResult) {
+    public String saveNewUser(@Valid User user, BindingResult bindingResult, @RequestParam("role") String role) {
         if (bindingResult.hasErrors())
             return "manager/createNewUser";
+
         else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setIsEnable(true);
@@ -86,52 +84,52 @@ public class ManagerController {
     }
 
     @RequestMapping("/manager/allUser")
-    public String showAllUser(Model model){
-        model.addAttribute("users",userService.usersNotManager());
+    public String showAllUser(Model model) {
+        model.addAttribute("users", userService.usersNotManager());
         return "manager/showAllUsers";
     }
 
     @GetMapping("/manager/editUser")
-    public String editUserPage(@RequestParam("userNationalId") String nationalId ,  Model model){
-        if(nationalId == "")
+    public String editUserPage(@RequestParam("userNationalId") String nationalId, Model model) {
+        if (nationalId == "")
             return "redirect:/manager/allUser";
         model.addAttribute("user", userService.findUserByNationalId(nationalId));
         return "investor/editInvestorInfo";
     }
 
     @GetMapping("/manager/showUserRequests")
-    public String showUserRequests(@RequestParam("userNationalId") String nationalId, Model model){
-        if(nationalId == "")
+    public String showUserRequests(@RequestParam("userNationalId") String nationalId, Model model) {
+        if (nationalId == "")
             return "redirect:/manager/allUser";
-        model.addAttribute("requests",requestService.getRequestsByUser(userService.findUserByNationalId(nationalId)));
+        model.addAttribute("requests", requestService.getRequestsByUser(userService.findUserByNationalId(nationalId)));
         return "investor/allRequests";
     }
 
     @GetMapping("/manager/searchUsers")
-    public String limitUsersByFields(@RequestParam("searchField") String searchField,@RequestParam("value")String value, Model model){
-        List<User> users ;
+    public String limitUsersByFields(@RequestParam("searchField") String searchField, @RequestParam("value") String value, Model model) {
+        List<User> users;
         if (searchField.equals("firstName"))
-            users = userService.findUsersLikeFirstName(value);
-        else if(searchField.equals("lastName"))
-            users = userService.findUsersLikeLastName(value);
-        else if(searchField.equals("nationalId"))
-            users = userService.findUsersLikeNationalId(value);
-        else if(searchField.equals("phoneNumber"))
-            users = userService.findUsersLikePhoneNumber(value);
+            users = userService.findUsersLikeFirstName(value,ROLE_MANAGER);
+        else if (searchField.equals("lastName"))
+            users = userService.findUsersLikeLastName(value,ROLE_MANAGER);
+        else if (searchField.equals("nationalId"))
+            users = userService.findUsersLikeNationalId(value,ROLE_MANAGER);
+        else if (searchField.equals("phoneNumber"))
+            users = userService.findUsersLikePhoneNumber(value,ROLE_MANAGER);
         else
             users = userService.getAllUsers();
-        model.addAttribute("users",users);
+        model.addAttribute("users", users);
         return "manager/showAllUsers";
     }
 
     @GetMapping("/manager/allRequests")
-    public String showAllRequests(Model model){
-        model.addAttribute("requests",requestService.getAllRequests());
+    public String showAllRequests(Model model) {
+        model.addAttribute("requests", requestService.getAllRequests());
         return "manager/showAllRequests";
     }
 
     @GetMapping("/manager/requestWithDetails")
-    public String showRequestWithDetails(@RequestParam("request-id")Integer requestId, Model model){
+    public String showRequestWithDetails(@RequestParam("request-id") Integer requestId, Model model) {
         if (requestId == 0)
             return "redirect:/manager/allRequests";
         Request request = requestService.getRequestById(requestId);
@@ -144,49 +142,55 @@ public class ManagerController {
 
     @GetMapping("/manager/limitRequestsList")
     public String limitRequestsList(@RequestParam("requestStatus") String requestStatus,
-                                    @RequestParam("date") String data, Model model){
+                                    @RequestParam("date") String data, Model model) {
         List<Request> requests = null;
-        if (requestStatus != "" && data != ""){
-            try {
-                requests = requestService.getByDateAndRequestStatus(new SimpleDateFormat("yyyy-MM-dd").parse(data), RequestStatus.valueOf(requestStatus));
-            } catch (ParseException e) {
-                e.printStackTrace();
+        if (requestStatus.equals("ALL")) {
+            if (!data.equals("")) {
+                try {
+                    requests = requestService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(data));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                requests = requestService.getAllRequests();
+            }
+        } else {
+            if (!data.equals("")) {
+                try {
+                    requests = requestService.getByDateAndRequestStatus(new SimpleDateFormat("yyyy-MM-dd").parse(data), RequestStatus.valueOf(requestStatus));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                requests = requestService.getByRequestStatus(RequestStatus.valueOf(requestStatus));
             }
         }
-        else if(requestStatus != ""){
-            requests = requestService.getByRequestStatus(RequestStatus.valueOf(requestStatus));
-        }else if(data != ""){
-            try {
-                requests = requestService.getByDate(new SimpleDateFormat("yyyy-MM-dd").parse(data));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        model.addAttribute("requests",requests);
+        model.addAttribute("requests", requests);
         return "manager/showAllRequests";
+
     }
 
     @GetMapping("/manager/viewAnswer")
-    public String viewAnswer(@RequestParam("request-id")Integer requestId, Model model){
+    public String viewAnswer(@RequestParam("request-id") Integer requestId, Model model) {
         if (requestId == 0)
             return "redirect:/manager/allRequests";
 
-        if (!answerService.existsByRequest(requestService.getRequestById(requestId))){
+        if (!answerService.existsByRequest(requestService.getRequestById(requestId))) {
             return "redirect:/manager/allRequests";
         }
 
-        model.addAttribute("answer",answerService.getRequestAnswerByRequest(requestService.getRequestById(requestId)));
+        model.addAttribute("answer", answerService.getRequestAnswerByRequest(requestService.getRequestById(requestId)));
         return "/investor/showAnswer";
     }
 
     @GetMapping("/manager/requestSubjects")
-    public String requestSubjects(Model model){
-        model.addAttribute("subjects",subjectService.getAllRequestSubjects());
+    public String requestSubjects(Model model) {
+        model.addAttribute("subjects", subjectService.getAllRequestSubjects());
         return "manager/requestSubject";
     }
 
     @GetMapping("/manager/deleteSubject")
-    public String deleteSubject(@RequestParam("subjectId")Integer subjectId){
+    public String deleteSubject(@RequestParam("subjectId") Integer subjectId) {
         if (subjectId == 0)
             return "redirect:/manager/requestSubjects";
         else {
@@ -196,7 +200,7 @@ public class ManagerController {
     }
 
     @PostMapping("/manager/newSubject")
-    public String newSubject(@RequestParam("subject")String subject){
+    public String newSubject(@RequestParam("subject") String subject) {
         if (subject == "")
             return "redirect:/manager/requestSubjects";
         else {
@@ -208,30 +212,33 @@ public class ManagerController {
     }
 
     @GetMapping("/manager/editUserPass")
-    public String editUserPassPage(@RequestParam("userNationalId")String userId, Model model){
-        System.out.println(userId);
-        model.addAttribute("id",userId);
+    public String editUserPassPage(@RequestParam("userNationalId") String nationalId, Model model) {
+        if (nationalId.equals(""))
+            return "redirect:/manager/allUser";
+        model.addAttribute("id", nationalId);
         return "manager/editUserPass";
     }
 
     @PostMapping("/admin/userNewPass")
-    public String saveUserNewPass(@RequestParam("new-pass")String newPass, @RequestParam("user-id")String userNationalId){
+    public String saveUserNewPass(@RequestParam("new-pass") String newPass, @RequestParam("user-id") String userNationalId) {
         User user = userService.findUserByNationalId(userNationalId);
-        if (PasswordConfig.isValidPassword(newPass)){
-            userService.changeUserPassword(user,newPass);
+        if (PasswordConfig.isValidPassword(newPass)) {
+            userService.changeUserPassword(user, newPass);
             return "redirect:/manager/allUser";
-        }else return "/manager/editUserPass";
+        } else return "/manager/editUserPass";
     }
 
     @PostMapping("/manager/ChangeUserLockSatus")
-    public String changeUserLockStatus(@RequestParam("userNationalId") String nationalId){
+    public String changeUserLockStatus(@RequestParam("userNationalId") String nationalId) {
+        if (nationalId.equals(""))
+            return "redirect:/manager/allUser";
         User user = userService.findUserByNationalId(nationalId);
         if (user.getIsNonLocked().equals(true))
             user.setIsNonLocked(false);
         else
             user.setIsNonLocked(true);
         userService.save(user);
-        return "redirect:/manager/allUser" ;
+        return "redirect:/manager/allUser";
     }
 
 }

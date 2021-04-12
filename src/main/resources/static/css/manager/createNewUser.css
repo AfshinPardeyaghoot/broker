@@ -45,7 +45,8 @@ body {
     height: 93%;
     display: flex;
     position: relative;
-    justify-content: center;
+    justify-content: right;
+    flex-direction: row;
     background-color: wheat;
 }
 
@@ -97,6 +98,21 @@ select {
     padding: 3px;
     margin: 3px;
 }
+
+.err{
+    color: #a04747;
+    height: 11%;
+    font-size: 15px;
+}
+
+.err-frame{
+    width: 28%;
+    text-align: left;
+    top: 12%;
+    height: 90%;
+    position: relative;
+}
+
 
 
 

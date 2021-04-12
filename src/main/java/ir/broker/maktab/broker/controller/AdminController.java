@@ -44,6 +44,8 @@ public class AdminController {
 
     @GetMapping("/admin/requestDetails")
     public String requestDetails(@RequestParam("request-id") Integer requestId, Model model) {
+        if (requestId.equals(0))
+            return "redirect:/admin/adminPanel";
         Request request = requestService.getRequestById(requestId);
         Set<DBFile> files = request.getFileAttachments();
         model.addAttribute("request", request);
@@ -63,6 +65,8 @@ public class AdminController {
 
     @GetMapping("/admin/answerPage")
     public String answerPage(@RequestParam("request-id") Integer requestId, Model model) {
+        if (requestId.equals(0))
+            return "redirect:/admin/adminPanel";
         model.addAttribute("requestId", requestId);
         return "admin/requestAnswer";
     }

@@ -67,20 +67,18 @@ public class InvestorController {
     }
 
     @PostMapping("/investor/update")
-    public String editInfo(@Valid User updatedUser, @RequestParam("userId") Integer id, BindingResult bindingResult) {
+    public String editInfo(@Valid User updatedUser, BindingResult bindingResult, @RequestParam("userId") Integer id) {
         String returnErrorUrl, returnValidUrl;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userService.getUserByUsername(username);
+        returnErrorUrl = "redirect:/investor/editInfo";
         if (user.getRoles().get(0).equals(Role.ROLE_INVESTOR)) {
-            returnErrorUrl = "redirect:/investor/editInfo";
             returnValidUrl = "redirect:/investor/investorPanel";
         } else {
-            returnErrorUrl = "redirect:/manager/allUser";
-            returnValidUrl = returnErrorUrl;
+            returnValidUrl = "redirect:/manager/allUser";
         }
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
             return returnErrorUrl;
         } else {
             user.setFirstName(updatedUser.getFirstName());

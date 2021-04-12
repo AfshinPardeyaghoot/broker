@@ -14,6 +14,8 @@
     </div>
     <div class="search-container">
         <form th:action="@{/manager/limitRequestsList}">
+            <label for="all">همه</label>
+            <input type="radio" name="requestStatus" id="all" value="ALL" checked="checked">
             <label for="attending">در حال بررسی</label>
             <input type="radio" name="requestStatus" id="attending" value="ATTENDING">
             <label for="answered">پاسخ داده شده</label>

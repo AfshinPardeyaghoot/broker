@@ -12,8 +12,35 @@
     <div class="titleFrame">
         ویرایش اطلاعات کاربری
     </div>
-    <div class="contentFrame">
-        <form method="post" th:action="@{/investor/update}" th:object="${user}">
+    <div class="contentFrame" th:object="${user}">
+        <div class="err-frame" >
+            <div class="err">
+                <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{nationalId}" th:if="${#fields.hasErrors('nationalId')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+            </div>
+            <div class="err">
+                <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+                <span th:text="${confirmPassError}"></span>
+            </div>
+            <div class="err">
+                <span th:text="${confirmPassError}"></span>
+            </div>
+        </div>
+        <form method="post" th:action="@{/investor/update}" >
             <div class="inp">
                 <label for="firstName">نام</label>
                 <input id="firstName" th:field="*{firstName}" th:value="*{firstName}" type="text"><br>

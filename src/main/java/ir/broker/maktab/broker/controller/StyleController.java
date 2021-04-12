@@ -14,10 +14,11 @@ public class StyleController {
 
     @GetMapping("/static/css/signUp.css")
     public String signUpStyle() {
+        System.out.println("in sign up style controller");
         return "../static/css/signUp.css";
     }
 
-    @GetMapping("/static/css/login.css")
+    @GetMapping("/static/css/loginStyle.css")
     public String loginStyle() {
         return "../static/css/login.css";
     }

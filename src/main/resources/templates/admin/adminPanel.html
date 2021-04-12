@@ -9,6 +9,7 @@
     <link href="../../static/css/admin/adminPanel.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<a class="logout-link" th:href="@{/logout}">خروج</a>
 <div class="main-container">
     <div class="title">
         <div class="title-content">درخواست ها</div>
@@ -16,11 +17,11 @@
     <div class="edit-show-container">
         <form class="button-form" th:action="@{/admin/answerPage}">
             <input class="edit-btn" type="submit" value=" پاسخ دادن">
-            <input name="request-id" type="hidden" class="request-id-answer">
+            <input name="request-id" type="hidden" class="request-id-answer" value="0">
         </form>
         <form class="button-form" th:action="@{/admin/requestDetails}">
-            <input class="edit-btn" type="submit" value="مشاهده درخواست">
-            <input name="request-id" type="hidden" class="request-id-show">
+            <input class="edit-btn" type="submit" value="مشاهده درخواست بصورت کامل">
+            <input name="request-id" type="hidden" class="request-id-show" value="0">
         </form>
     </div>
     <div class="main-table">

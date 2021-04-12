@@ -47,20 +47,20 @@ public class UserService implements UserDetailsService {
         return userRepository.findByNationalId(nationalId).get();
     }
 
-    public List<User> findUsersLikeFirstName(String firstName) {
-        return userRepository.findUsersByFirstNameContaining(firstName);
+    public List<User> findUsersLikeFirstName(String firstName, Role role) {
+        return userRepository.findUsersByFirstNameContainingAndRolesNot(firstName,role);
     }
 
-    public List<User> findUsersLikeLastName(String lastName) {
-        return userRepository.findUsersByLastNameContaining(lastName);
+    public List<User> findUsersLikeLastName(String lastName, Role role) {
+        return userRepository.findUsersByLastNameContainingAndRolesNot(lastName,role);
     }
 
-    public List<User> findUsersLikeNationalId(String nationalId) {
-        return userRepository.findUsersByNationalIdContaining(nationalId);
+    public List<User> findUsersLikeNationalId(String nationalId,Role role) {
+        return userRepository.findUsersByNationalIdContainingAndRolesNot(nationalId,role);
     }
 
-    public List<User> findUsersLikePhoneNumber(String phoneNumber) {
-        return userRepository.findUsersByPhoneNumberContaining(phoneNumber);
+    public List<User> findUsersLikePhoneNumber(String phoneNumber, Role role) {
+        return userRepository.findUsersByPhoneNumberContainingAndRolesNot(phoneNumber,role);
     }
 
     public void changeUserPassword(User user, String password) {

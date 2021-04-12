@@ -44,8 +44,9 @@ body {
     height: 90%;
     display: flex;
     position: relative;
-    justify-content: center;
+    justify-content: right;
     background-color: wheat;
+    flex-direction: row;
 }
 
 form {
@@ -89,6 +90,21 @@ input[type="text"], input[type="password"], input[type="email"] {
     background-color: wheat;
     margin: 3px;
     outline: black;
+}
+
+
+.err{
+    color: #a04747;
+    height: 12.5%;
+    font-size: 15px;
+}
+
+.err-frame{
+    width: 28%;
+    text-align: left;
+    top: 7px;
+    height: 90%;
+    position: relative;
 }
 
 

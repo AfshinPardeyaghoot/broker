@@ -39,8 +39,6 @@ public class User implements UserDetails {
     private String lastName;
 
     @NotBlank
-
-//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,50}$")
     private String password;
 
 
