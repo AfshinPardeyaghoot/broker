@@ -1,6 +1,10 @@
 package ir.broker.maktab.broker.model.user;
 
 import ir.broker.maktab.broker.model.request.Request;
+import ir.broker.maktab.broker.service.validator.UniqueEmail;
+import ir.broker.maktab.broker.service.validator.UniqueNationalId;
+import ir.broker.maktab.broker.service.validator.UniquePhoneNumber;
+import ir.broker.maktab.broker.service.validator.UniqueUsername;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +29,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @UniqueUsername
     @NotBlank
     @Column(unique = true)
     @Size(min = 6, max = 50)
@@ -41,17 +46,19 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
-
+    @UniquePhoneNumber
     @NotBlank
     @Column(unique = true)
     @Size(min = 11, max = 11)
     private String phoneNumber;
 
+    @UniqueEmail
     @NotBlank
     @Column(unique = true)
     @Email(message = "email should be valid")
     private String email;
 
+    @UniqueNationalId
     @NotBlank
     @Column(unique = true)
     @Size(min = 10, max = 10)

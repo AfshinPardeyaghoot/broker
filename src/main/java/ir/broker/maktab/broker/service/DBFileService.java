@@ -52,4 +52,8 @@ public class DBFileService {
         }
         return dbFile;
     }
+
+    public void deleteFileByRequest(Request request){
+        repository.deleteDBFileByRequest(request);
+    }
 }

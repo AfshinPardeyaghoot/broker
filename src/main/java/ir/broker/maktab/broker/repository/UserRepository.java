@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findUsersByNationalIdContainingAndRolesNot(String nationalId, Role role);
     List<User> findUsersByPhoneNumberContainingAndRolesNot(String phoneNumber, Role role);
     List<User> findUsersByRolesNot(Role role);
+    boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByNationalId(String nationalId);
+    boolean existsByUsername(String username);
 }

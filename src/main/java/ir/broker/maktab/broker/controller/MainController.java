@@ -45,7 +45,9 @@ public class MainController {
             model.addAttribute("confirmPassError","رمز عبور باید شامل حروف بزرگ ، حروف کوچک ، اعداد و علامت ها باشد");
             return "signUp";
         }
-        else if (!passwordEncoder.matches(user.getPassword(),confirmPassword)){
+        else if (!user.getPassword().equals(confirmPassword)){
+            System.out.println("user.getPassword : "+user.getPassword());
+            System.out.println("confirm Password : "+confirmPassword);
             model.addAttribute("confirmPassError","تکرار رمز عبور را بصورت صحیح وارد کنید");
             return "signUp";
         }

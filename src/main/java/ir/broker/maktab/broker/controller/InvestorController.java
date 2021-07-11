@@ -139,7 +139,7 @@ public class InvestorController {
     @GetMapping("/investor/downloadAttachFile/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("id") Integer fileId) {
         DBFile dbFile = fileService.getFile(fileId);
-
+        System.out.println(dbFile.getFileType());
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
@@ -209,6 +209,18 @@ public class InvestorController {
         } else
             return "redirect:/investor/editPass";
 
+    }
+
+    @PostMapping("investor/deleteRequest")
+    public String deleteRequest(@RequestParam("request-id") Integer requestId){
+        if (requestId == 0)
+            return "redirect:/investor/viewAllRequests";
+
+        if (answerService.existsByRequest(requestService.getRequestById(requestId))) {
+            return "redirect:/investor/viewAllRequests";
+        }
+        requestService.deleteById(requestId);
+        return "redirect:/investor/viewAllRequests";
     }
 
 

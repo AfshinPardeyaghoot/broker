@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface DBFileRepository extends JpaRepository<DBFile, Integer> {
     Optional<DBFile> findDBFileById(Integer id);
-    void deleteById(Integer id);
     Optional<DBFile> findByRequest(Request request);
+    void deleteById(Integer id);
+    void deleteDBFileByRequest(Request request);
+
 }

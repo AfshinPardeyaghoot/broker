@@ -5,5 +5,6 @@ $(document).ready(function () {
         $(".request-id-show").val(value);
         $(".request-id-answer").val(value);
         $(".request-id-edit").val(value);
+        $(".request-id-delete").val(value);
     });
 })

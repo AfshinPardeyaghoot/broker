@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,7 @@ public class RequestService {
 
 
     private final RequestRepository requestRepository;
-
     private final DBFileService dbFileService;
-
     private final RequestSubjectService requestSubjectService;
 
     @Autowired
@@ -71,5 +70,11 @@ public class RequestService {
 
     public List<Request> getByRequestStatus( RequestStatus requestStatus){
         return requestRepository.getRequestsByRequestStatus(requestStatus);
+    }
+
+    @Transactional
+    public void deleteById(Integer id){
+        dbFileService.deleteFileByRequest(requestRepository.getRequestsById(id).get());
+        requestRepository.deleteById(id);
     }
 }

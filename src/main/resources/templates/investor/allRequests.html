@@ -26,6 +26,10 @@
             <input class="edit-btn" type="submit" value="ویرایش درخواست">
             <input name="request-id" value="0"  type="hidden" class="request-id-edit">
         </form>
+        <form class="button-form" th:action="@{/investor/deleteRequest}" method="post">
+            <input class="edit-btn" type="submit" value="حذف درخواست">
+            <input name="request-id" value="0"  type="hidden" class="request-id-delete">
+        </form>
     </div>
     <div class="main-table">
         <table id="table">

@@ -34,11 +34,11 @@ import static ir.broker.maktab.broker.model.user.Role.*;
 @Controller
 public class ManagerController {
 
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
-    private RequestService requestService;
-    private RequestSubjectService subjectService;
-    private RequestAnswerService answerService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final RequestService requestService;
+    private final RequestSubjectService subjectService;
+    private final RequestAnswerService answerService;
 
     @Autowired
     public ManagerController(UserService userService, PasswordEncoder passwordEncoder, RequestService requestService, RequestSubjectService subjectService, RequestAnswerService answerService) {
@@ -109,13 +109,13 @@ public class ManagerController {
     public String limitUsersByFields(@RequestParam("searchField") String searchField, @RequestParam("value") String value, Model model) {
         List<User> users;
         if (searchField.equals("firstName"))
-            users = userService.findUsersLikeFirstName(value,ROLE_MANAGER);
+            users = userService.findUsersLikeFirstName(value, ROLE_MANAGER);
         else if (searchField.equals("lastName"))
-            users = userService.findUsersLikeLastName(value,ROLE_MANAGER);
+            users = userService.findUsersLikeLastName(value, ROLE_MANAGER);
         else if (searchField.equals("nationalId"))
-            users = userService.findUsersLikeNationalId(value,ROLE_MANAGER);
+            users = userService.findUsersLikeNationalId(value, ROLE_MANAGER);
         else if (searchField.equals("phoneNumber"))
-            users = userService.findUsersLikePhoneNumber(value,ROLE_MANAGER);
+            users = userService.findUsersLikePhoneNumber(value, ROLE_MANAGER);
         else
             users = userService.getAllUsers();
         model.addAttribute("users", users);
@@ -233,10 +233,7 @@ public class ManagerController {
         if (nationalId.equals(""))
             return "redirect:/manager/allUser";
         User user = userService.findUserByNationalId(nationalId);
-        if (user.getIsNonLocked().equals(true))
-            user.setIsNonLocked(false);
-        else
-            user.setIsNonLocked(true);
+        user.setIsNonLocked(!user.getIsNonLocked().equals(true));
         userService.save(user);
         return "redirect:/manager/allUser";
     }
