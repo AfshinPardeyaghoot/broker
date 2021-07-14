@@ -61,7 +61,7 @@ public class MainController {
         }
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -75,10 +75,11 @@ public class MainController {
         return null;
     }
 
-    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-    public ModelAndView loginPage() {
-        return new ModelAndView("login");
+    @GetMapping("/login")
+    public String login(){
+        return "login";
     }
+
 
 
 }

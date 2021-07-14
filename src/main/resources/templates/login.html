@@ -13,12 +13,19 @@
             ورود به پنل مشتری
         </div>
         <div class="login">
-            <form method="post" name="f" th:action="@{/login}">
-                <label for="userName-inp">نام کاربری</label><br>
-                <input id="userName-inp" name="username" type="text"><br>
-                <label for="pass-inp">رمز ورورد</label><br>
-                <input id="pass-inp" name="password" type="password"><br>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <form method="post" name="f" th:action="@{/doLogin}">
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out
+                </div>
+                <div th:if="${param.error}" class="alert alert-error">
+                    Invalid username or password
+                </div>
+                <label for="username">نام کاربری</label><br>
+                <input id="username" name="username" type="text"><br>
+
+                <label for="password">رمز ورورد</label><br>
+                <input id="password" name="password" type="password"><br>
+
                 <input class="submit" name="submit" type="submit" value="ورود">
             </form>
         </div>
